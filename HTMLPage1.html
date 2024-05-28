@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-top: 10px;
+            width: 100%;
+            text-align: left;
+        }
+
+        input {
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+            }
+
+            input, button {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <form id="age-form">
+            <label for="day">Day:</label>
+            <input type="number" id="day" name="day" min="1" max="31" required>
+
+            <label for="month">Month:</label>
+            <input type="number" id="month" name="month" min="1" max="12" required>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" min="1900" max="2024" required>
+
+            <button type="submit">Calculate Age</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('age-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let day = document.getElementById('day').value;
+            let month = document.getElementById('month').value;
+            let year = document.getElementById('year').value;
+
+            let birthDate = new Date(year, month - 1, day);
+            let today = new Date();
+
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let monthDifference = today.getMonth() - birthDate.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            document.getElementById('result').innerText = `You are ${age} years old.`;
+        });
+    </script>
+</body>
+</html>
